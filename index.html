@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html  lang="zh">
+<head>
+    <meta charset="utf-8">
+<title>Simpler</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
+
+
+    <meta property="og:type" content="website">
+<meta property="og:title" content="Simpler">
+<meta property="og:url" content="https://zjlearn.github.io/index.html">
+<meta property="og:site_name" content="Simpler">
+<meta property="og:locale" content="zh-Hans">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Simpler">
+
+
+
+
+
+<link rel="icon" href="/images/favicon.svg">
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
+    
+
+    
+    
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
+    
+
+    
+    
+    
+    <style>body>.navbar,body>.section,body>.footer{opacity: 0}</style>
+    
+
+    
+    
+    
+    
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
+<style>
+.pace {
+  -webkit-pointer-events: none;
+  pointer-events: none;
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+}
+
+.pace-inactive {
+  display: none;
+}
+
+.pace .pace-progress {
+  background: #3273dc;
+  position: fixed;
+  z-index: 2000;
+  top: 0;
+  right: 100%;
+  width: 100%;
+  height: 2px;
+}
+</style>
+
+    
+
+
+</head>
+<body class="is-2-column">
+    <nav class="navbar navbar-main">
+    <div class="container">
+        <div class="navbar-brand is-flex-center">
+            <a class="navbar-item navbar-logo" href="/">
+            
+                <img src="/images/logo.svg" alt="" height="28">
+            
+            </a>
+        </div>
+        <div class="navbar-menu">
+            
+            <div class="navbar-start">
+                
+                <a class="navbar-item is-active"
+                href="/">主页</a>
+                
+                <a class="navbar-item"
+                href="/archives">归档</a>
+                
+                <a class="navbar-item"
+                href="/categories">分类</a>
+                
+                <a class="navbar-item"
+                href="/about">关于</a>
+                
+            </div>
+            
+            <div class="navbar-end">
+                
+                    
+                    
+                    <a class="navbar-item" target="_blank" title="Download on GitHub" href="http://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                    
+                
+                
+                
+                <a class="navbar-item search" title="Search" href="javascript:;">
+                    <i class="fas fa-search"></i>
+                </a>
+                
+            </div>
+        </div>
+    </div>
+</nav>
+    
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column is-8-tablet is-8-desktop is-8-widescreen has-order-2 column-main">
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2018-08-16T12:17:21.000Z">2018-08-16</time>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    9 minutes read (About 1376 words)
+                </span>
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2018/08/16/简单的多数据源/">简单的多数据源</a>
+            
+        </h1>
+        <div class="content">
+            <h2 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h2><p>  在web开发中经常会遇到一个应用需要连接多个数据源的情况， 可以将数据源理解为数据的服务器， 而应用作为获取数据的客户端就需要和多个数据服务器之间建立连接。<br>  多数据源的连接颇像web服务器的连接。<br>  本文基于springboot+ Mybatis + druid的环境，分析如何建立多数据源。</p>
+<h1 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h1><p>添加动态数据源的方法 可以之间参考下面的两篇文章。<br><a href="https://blog.csdn.net/neosmith/article/details/61202084" target="_blank" rel="noopener">Spring Boot + Mybatis多数据源和动态数据源配置 - CSDN博客</a><br><a href="https://github.com/alibaba/druid/tree/master/druid-spring-boot-starter" target="_blank" rel="noopener">druid/druid-spring-boot-starter at master · alibaba/druid · GitHub</a></p>
+<h1 id="原理："><a href="#原理：" class="headerlink" title="原理："></a>原理：</h1><p>考虑连接WEB服务器一般需要的技术方法：</p>
+<ul>
+<li>确定服务器的Ip和端口号</li>
+<li>因为http请求的无记忆性，所以引入了cookie和session技术记住用户</li>
+<li>为了性能，使用http连接池。</li>
+</ul>
+<p>相同的方式：在数据库连接时， 我们也需要相同的处理。 为了有个明显的对比，使用表格的方式列出</p>
+<table>
+<thead>
+<tr>
+<th>http请求</th>
+<th>数据连接池  </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td> 服务器的Ip和端口号</td>
+<td>定义数据源DataSource</td>
+<td></td>
+</tr>
+<tr>
+<td>session</td>
+<td>SqlSession    </td>
+</tr>
+<tr>
+<td> http连接池</td>
+<td>DruidDataSource(阿里的数据库连接池)</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>从上表可以看出Http请求和数据库连接池DataSource之间是非常相似的，只是两者连接时， 使用的协议不同。<br>从本质上讲： 协议也只不过是客户端和服务端之间的报文格式和交互通信方式的描述。</p>
+<p>理清了数据库连接需要的信息， 下面只需要将上述三个点连接起来即可，<br>下面，我们通过代码看下springboot中如何将上述三点连接起来：</p>
+<ol>
+<li><p>创建相应的数据源</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@Bean(name = &quot;ds2&quot;)</span><br><span class="line">   @ConfigurationProperties(prefix = &quot;spring.datasource.db2&quot;) // application.properteis中对应属性的前缀</span><br><span class="line">   public DataSource dataSource2() &#123;</span><br><span class="line">       return DataSourceBuilder.create().build();</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>创建相应的sqlSession<br>通过<a href="http://www.mybatis.org/spring/zh/sqlsession.html" target="_blank" rel="noopener">mybatis-spring – MyBatis-Spring | 第五章 使用 SqlSession</a> 中可以知道，mybatsi-spring其实是通过SqlSessionTemplate 来管理SqlSession<br>, SqlSessionFactory 来创建SqlSession. 所以想要使用SqlSession. 只需要提供SqlSessionTemplate 即可。spring会利用该对象进行session的创建和销毁</li>
+</ol>
+</li>
+</ol>
+<p>通过查看下SqlSessionTemplate的类，以及利用spring生成Bean的方式，很容易生成特定DataSource的SqlSessionTemplate。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">@Bean</span><br><span class="line">   public SqlSessionFactory sqlSessionFactory1() throws Exception &#123;</span><br><span class="line">       SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();</span><br><span class="line">       factoryBean.setDataSource(ds1); // 使用titan数据源, 连接titan库</span><br><span class="line"></span><br><span class="line">       return factoryBean.getObject();</span><br><span class="line"></span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   @Bean</span><br><span class="line">   public SqlSessionTemplate sqlSessionTemplate1() throws Exception &#123;</span><br><span class="line">       SqlSessionTemplate template = new SqlSessionTemplate(sqlSessionFactory1()); // 使用上面配置的Factory</span><br><span class="line">       return template;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
+<ol start="3">
+<li>链接</li>
+</ol>
+<p>现在对于spring来说， 只是生成了一个DataSource和DataSource像对应的Session管理器。 而在真正调用mybatis层方法的时候，并不知道该mapper层是想要访问哪一个数据源。</p>
+<p>而链接方式即是加上如下的配置：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">@MapperScan(basePackages = &#123;&quot;titan.mapper&quot;&#125;, sqlSessionFactoryRef = &quot;sqlSessionFactory1&quot;)</span><br><span class="line">public class MybatisDbLogisticsServiceConfig &#123;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>打开MapperScan的源码，可以看到下面的注释：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">@MapperScan(&quot;org.mybatis.spring.sample.mapper&quot;)</span><br><span class="line"> public class AppConfig &#123;</span><br><span class="line"></span><br><span class="line">   @Bean</span><br><span class="line">   public DataSource dataSource() &#123;</span><br><span class="line">     return new EmbeddedDatabaseBuilder()</span><br><span class="line">              .addScript(&quot;schema.sql&quot;)</span><br><span class="line">              .build();</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   @Bean</span><br><span class="line">   public DataSourceTransactionManager transactionManager() &#123;</span><br><span class="line">     return new DataSourceTransactionManager(dataSource());</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   @Bean</span><br><span class="line">   public SqlSessionFactory sqlSessionFactory() throws Exception &#123;</span><br><span class="line">     SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();</span><br><span class="line">     sessionFactory.setDataSource(dataSource())˙</span><br><span class="line">     return sessionFactory.getObject();</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
+<p>很容易的看出， 其用于将某一文件夹下的Mapper文件和特定的DataSource， DataSourceTransactionManager(事务管理器),  SqlSessionFactory 相关联。</p>
+<p>关联之后， 执行某一Mapper类时， 就可以知道访问哪一个具体的DataSource了。</p>
+<ol start="4">
+<li>连接池<br>关于连接池的配置， 可以使用<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@Bean(name = &quot;ds2&quot;)</span><br><span class="line">   @ConfigurationProperties(prefix = &quot;spring.datasource.db2&quot;) // application.properteis中对应属性的前缀</span><br><span class="line">   public DataSource dataSource2() &#123;</span><br><span class="line">       return DataSourceBuilder.create().build();</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>并加上下面的配置：<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spring.datasource.db2.type=com.alibaba.druid.pool.DruidDataSource</span><br></pre></td></tr></table></figure></p>
+<p>或者在声明数据源时直接使用DruidDataSourceBuilder的数据源构造器。<br><figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">@Primary</span><br><span class="line">@Bean</span><br><span class="line">@ConfigurationProperties(&quot;spring.datasource.druid.one&quot;)</span><br><span class="line">public DataSource dataSourceOne()&#123;</span><br><span class="line">    return DruidDataSourceBuilder.create().build();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="调试方式"><a href="#调试方式" class="headerlink" title="调试方式"></a>调试方式</h1><p>在写完所有所需要的部分， 下面就需要检验多数据源是否生效。<br>最简单的检验方式就是将程序跑起来， 分别调用不同数据源的方法， 观察数据源的切换。<br>下面介绍下两种调试方法：</p>
+<ol>
+<li><p>debug模式启动程序，并在调用mapper的方法内打断点。并查看Mapper的相关属性是否正确。这在检查数据源的属性(比如闲时检测)是否设置到数据源中至关重要。<br><img src="https://upload-images.jianshu.io/upload_images/1435951-adcacc26a0ecf5c4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="f5c45e3d.png"></p>
+</li>
+<li><p>另外一种， 可以连接mysql，并查看数据库的连接情况。<br>主要是使用下面的命令：</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show processlist;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>显示结果如下：<br><img src="https://upload-images.jianshu.io/upload_images/1435951-e5de70cd99ac54ac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
+<p>上面显示了该数据库的连接情况。 从中可以看出以下几点信息：<br>1： 有那些主机连接到该数据库 即Host列，<br>2： 每个连接的状态，即Command<br>3： 连接保持的时间 即 Time</p>
+<h1 id="复盘"><a href="#复盘" class="headerlink" title="复盘"></a>复盘</h1><ul>
+<li>多debug</li>
+<li>多思考与联系</li>
+</ul>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><p><a href="http://www.mybatis.org/mybatis-3/zh/index.html" target="_blank" rel="noopener">mybatis – MyBatis 3 | 简介</a><br><a href="http://www.mybatis.org/spring/zh/mappers.html" target="_blank" rel="noopener">mybatis-spring – MyBatis-Spring | 第六章 注入映射器</a><br><a href="https://blog.csdn.net/neosmith/article/details/61202084" target="_blank" rel="noopener">Spring Boot + Mybatis多数据源和动态数据源配置 - CSDN博客</a><br><a href="https://github.com/alibaba/druid/tree/master/druid-spring-boot-starter" target="_blank" rel="noopener">druid/druid-spring-boot-starter at master · alibaba/druid · GitHub</a></p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+</div>
+                
+
+
+
+<div class="column is-4-tablet is-4-desktop is-4-widescreen  has-order-1 column-left">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <nav class="level">
+            <div class="level-item has-text-centered">
+                <div>
+                    <img class="image is-128x128 has-mb-6" src="/images/avatar.png">
+                    
+                    <p class="is-size-4 is-block">
+                        张军
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-block">
+                        software engineer
+                    </p>
+                    
+                    
+                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
+                        <i class="fas fa-map-marker-alt has-mr-7"></i>
+                        <span>hang zhou</span>
+                    </p>
+                    
+                </div>
+            </div>
+        </nav>
+        <nav class="level is-mobile">
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Entrada
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        1
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Categorias
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        0
+                    </p>
+                </div>
+            </div>
+            <div class="level-item has-text-centered is-marginless">
+                <div>
+                    <p class="heading">
+                        Etiqueta
+                    </p>
+                    <p class="title has-text-weight-normal">
+                        1
+                    </p>
+                </div>
+            </div>
+        </nav>
+        <div class="level">
+            <a class="level-item button is-link is-rounded" href="https://github.com/zjlearn">
+                SEGUIR</a>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="Github" href="http://github.com/ppoffice">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+            
+            <a class="level-item button is-white is-marginless" target="_blank"
+                title="RSS" href="/">
+                
+                <i class="fas fa-rss"></i>
+                
+            </a>
+            
+        </div>
+        
+    </div>
+</div>
+    
+        
+    
+        
+
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Links
+        </h3>
+        <ul class="menu-list">
+        
+            <li>
+                <a class="level is-mobile" href="https://hexo.io" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">Hexo</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">https://hexo.io</span>
+                    </span>
+                </a>
+            </li>
+        
+            <li>
+                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank">
+                    <span class="level-left">
+                        <span class="level-item">PPOffice</span>
+                    </span>
+                    <span class="level-right">
+                        <span class="level-item tag">https://github.com/ppoffice</span>
+                    </span>
+                </a>
+            </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Categorias
+            </h3>
+            <ul class="menu-list">
+            
+            </ul>
+        </div>
+    </div>
+</div>
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Nube de etiquetas
+        </h3>
+        <a href="/tags/springboot/" style="font-size: 10px;">springboot</a>
+    </div>
+</div>
+
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            Recientes
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2018/08/16/简单的多数据源/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="简单的多数据源">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2018-08-16T12:17:21.000Z">2018-08-16</time></div>
+                    <a href="/2018/08/16/简单的多数据源/" class="has-link-black-ter is-size-6">简单的多数据源</a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            Archivos
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2018/08/">
+                <span class="level-start">
+                    <span class="level-item">August 2018</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                Etiquetas
+            </h3>
+            <ul class="menu-list">
+                
+                <li>
+                    <a class="level is-marginless" href="/tags/springboot/">
+                        <span class="level-start">
+                            <span class="level-item">springboot</span>
+                        </span>
+                        <span class="level-end">
+                            <span class="level-item tag">1</span>
+                        </span>
+                    </a>
+                </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+    
+    
+        <div class="card card-transparent is-hidden-widescreen">
+        
+        </div>
+    
+</div>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="footer">
+    <div class="container">
+        <div class="level">
+            <div class="level-start has-text-centered-mobile">
+                <a class="footer-logo is-block has-mb-6" href="/">
+                
+                    <img src="/images/logo.svg" alt="" height="28">
+                
+                </a>
+                <p class="is-size-7">
+                &copy; 2018 张军&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a
+                        href="http://github.com/ppoffice/hexo-theme-icarus">Icarus</a>
+                </p>
+            </div>
+            <div class="level-end">
+            
+                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
+                
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Creative Commons" href="https://creativecommons.org/">
+                        
+                        <i class="fab fa-creative-commons"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
+                        
+                        <i class="fab fa-creative-commons-by"></i>
+                        
+                    </a>
+                </p>
+                
+                <p class="control">
+                    <a class="button is-white is-large" target="_blank" title="Download on GitHub" href="http://github.com/ppoffice/hexo-theme-icarus">
+                        
+                        <i class="fab fa-github"></i>
+                        
+                    </a>
+                </p>
+                
+                </div>
+            
+            </div>
+        </div>
+    </div>
+</footer>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
+<script>moment.locale("zh-Hans");</script>
+
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js"></script>
+    <script>
+        (function ($) {
+            $(document).ready(function () {
+                if (typeof($.fn.lightGallery) === 'function') {
+                    $('.article').lightGallery({ selector: '.gallery-item' });
+                }
+                if (typeof($.fn.justifiedGallery) === 'function') {
+                    $('.justified-gallery').justifiedGallery();
+                }
+            });
+        })(jQuery);
+    </script>
+    
+
+    
+    
+    
+    <div id="outdated">
+        <h6>Your browser is out-of-date!</h6>
+        <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+        <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            // plugin function, place inside DOM ready function
+            outdatedBrowser({
+                bgColor: '#f25648',
+                color: '#ffffff',
+                lowerThan: 'flex'
+            })
+        });
+    </script>
+    
+
+    
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/animejs@2.2.0/anime.js"></script>
+    <script>
+    function isIE() {
+        var ua = window.navigator.userAgent;
+        var msie = ua.indexOf('MSIE ');
+        var trident = ua.indexOf('Trident/');
+        return (msie > 0 || trident > 0);
+    }
+
+    $(document).ready(function () {
+        $('body>.navbar,body>.section,body>.footer').css('opacity', 1);
+        if (!isIE()) {
+            ['.column-main > .card',
+             '.column-left > .card',
+             '.column-right > .card'].map(function(target) {
+                anime({
+                    targets: target,
+                    scale: [0.8, 1],
+                    opacity: [0, 1],
+                    duration: 300,
+                    easing: 'easeOutSine',
+                    delay: function(el, i, l) {
+                        return i * 100;
+                    }
+                })
+            });
+
+            anime({
+                targets: '.navbar-main',
+                translateY: [-100, 0],
+                opacity: [0, 1],
+                duration: 300,
+                easing: 'easeOutSine'
+            });
+        }
+    });
+    </script>
+    
+
+    
+    
+<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {matchFontHeight: false},
+        SVG: {matchFontHeight: false},
+        CommonHTML: {matchFontHeight: false}
+    });
+</script>
+
+    
+    
+
+<a id="back-to-top" title="Back to Top" href="javascript:;">
+    <i class="fas fa-chevron-up"></i>
+</a>
+<style>
+#back-to-top {
+    position: fixed;
+    padding: 8px 0;
+    transition: 0.4s ease opacity, 0.4s ease width, 0.4s ease transform, 0.4s ease border-radius;
+    opacity: 0;
+    line-height: 24px;
+    outline: none;
+    transform: translateY(120px);
+}
+#back-to-top.fade-in {
+    opacity: 1;
+}
+#back-to-top.rise-up {
+    transform: translateY(0);
+}
+</style>
+<script src="/js/back-to-top.js"></script>
+
+
+    
+    
+
+    
+    
+    
+    
+
+    
+    
+    
+
+
+<script src="/js/main.js"></script>
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Entradas',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categorias',
+                TAGS: 'Etiquetas',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+<script src="/js/insight.js"></script>
+<link rel="stylesheet" href="/css/search.css">
+<link rel="stylesheet" href="/css/insight.css">
+    
+</body>
+</html>
