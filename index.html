@@ -187,6 +187,36 @@
         </li>
       
         
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
         <li class="menu-item menu-item-archives">
           <a href="/archives/" rel="section">
             
@@ -318,18 +348,16 @@
 </thead>
 <tbody>
 <tr>
-<td> 服务器的Ip和端口号</td>
-<td>定义数据源DataSource</td>
-<td></td>
+<td>服务器的Ip和端口号</td>
+<td>定义数据源DataSource  </td>
 </tr>
 <tr>
 <td>session</td>
 <td>SqlSession    </td>
 </tr>
 <tr>
-<td> http连接池</td>
+<td>http连接池</td>
 <td>DruidDataSource(阿里的数据库连接池)</td>
-<td></td>
 </tr>
 </tbody>
 </table>
@@ -337,33 +365,33 @@
 <p>理清了数据库连接需要的信息， 下面只需要将上述三个点连接起来即可，<br>下面，我们通过代码看下springboot中如何将上述三点连接起来：</p>
 <ol>
 <li><p>创建相应的数据源</p>
-<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@Bean</span>(name = <span class="hljs-string">"ds2"</span>)</span><br><span class="line">   <span class="hljs-meta">@ConfigurationProperties</span>(prefix = <span class="hljs-string">"spring.datasource.db2"</span>) <span class="hljs-comment">// application.properteis中对应属性的前缀</span></span><br><span class="line">   <span class="hljs-function"><span class="hljs-keyword">public</span> DataSource <span class="hljs-title">dataSource2</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">       <span class="hljs-keyword">return</span> DataSourceBuilder.create().build();</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>创建相应的sqlSession<br>通过<a href="http://www.mybatis.org/spring/zh/sqlsession.html" target="_blank" rel="noopener">mybatis-spring – MyBatis-Spring | 第五章 使用 SqlSession</a> 中可以知道，mybatsi-spring其实是通过SqlSessionTemplate 来管理SqlSession<br>, SqlSessionFactory 来创建SqlSession. 所以想要使用SqlSession. 只需要提供SqlSessionTemplate 即可。spring会利用该对象进行session的创建和销毁</li>
-</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span>(name = <span class="string">"ds2"</span>)</span><br><span class="line">   <span class="meta">@ConfigurationProperties</span>(prefix = <span class="string">"spring.datasource.db2"</span>) <span class="comment">// application.properteis中对应属性的前缀</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> DataSource <span class="title">dataSource2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       <span class="keyword">return</span> DataSourceBuilder.create().build();</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>创建相应的sqlSession</p>
 </li>
 </ol>
-<p>通过查看下SqlSessionTemplate的类，以及利用spring生成Bean的方式，很容易生成特定DataSource的SqlSessionTemplate。<br><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@Bean</span></span><br><span class="line">   <span class="hljs-function"><span class="hljs-keyword">public</span> SqlSessionFactory <span class="hljs-title">sqlSessionFactory1</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;</span><br><span class="line">       SqlSessionFactoryBean factoryBean = <span class="hljs-keyword">new</span> SqlSessionFactoryBean();</span><br><span class="line">       factoryBean.setDataSource(ds1); <span class="hljs-comment">// 使用titan数据源, 连接titan库</span></span><br><span class="line"></span><br><span class="line">       <span class="hljs-keyword">return</span> factoryBean.getObject();</span><br><span class="line"></span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="hljs-meta">@Bean</span></span><br><span class="line">   <span class="hljs-function"><span class="hljs-keyword">public</span> SqlSessionTemplate <span class="hljs-title">sqlSessionTemplate1</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;</span><br><span class="line">       SqlSessionTemplate template = <span class="hljs-keyword">new</span> SqlSessionTemplate(sqlSessionFactory1()); <span class="hljs-comment">// 使用上面配置的Factory</span></span><br><span class="line">       <span class="hljs-keyword">return</span> template;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
+<p>通过<a href="http://www.mybatis.org/spring/zh/sqlsession.html" target="_blank" rel="noopener">mybatis-spring – MyBatis-Spring | 第五章 使用 SqlSession</a> 中可以知道，mybatsi-spring其实是通过SqlSessionTemplate 来管理SqlSession<br>, SqlSessionFactory 来创建SqlSession. 所以想要使用SqlSession. 只需要提供SqlSessionTemplate 即可。spring会利用该对象进行session的创建和销毁</p>
+<p>通过查看下SqlSessionTemplate的类，以及利用spring生成Bean的方式，很容易生成特定DataSource的SqlSessionTemplate。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> SqlSessionFactory <span class="title">sqlSessionFactory1</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">       SqlSessionFactoryBean factoryBean = <span class="keyword">new</span> SqlSessionFactoryBean();</span><br><span class="line">       factoryBean.setDataSource(ds1); <span class="comment">// 使用titan数据源, 连接titan库</span></span><br><span class="line"></span><br><span class="line">       <span class="keyword">return</span> factoryBean.getObject();</span><br><span class="line"></span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="meta">@Bean</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> SqlSessionTemplate <span class="title">sqlSessionTemplate1</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">       SqlSessionTemplate template = <span class="keyword">new</span> SqlSessionTemplate(sqlSessionFactory1()); <span class="comment">// 使用上面配置的Factory</span></span><br><span class="line">       <span class="keyword">return</span> template;</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
 <ol start="3">
 <li>链接</li>
 </ol>
 <p>现在对于spring来说， 只是生成了一个DataSource和DataSource像对应的Session管理器。 而在真正调用mybatis层方法的时候，并不知道该mapper层是想要访问哪一个数据源。</p>
-<p>而链接方式即是加上如下的配置：<br><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@MapperScan</span>(basePackages = &#123;<span class="hljs-string">"titan.mapper"</span>&#125;, sqlSessionFactoryRef = <span class="hljs-string">"sqlSessionFactory1"</span>)</span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MybatisDbLogisticsServiceConfig</span> </span>&#123;&#125;</span><br></pre></td></tr></table></figure></p>
-<p>打开MapperScan的源码，可以看到下面的注释：<br><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@MapperScan</span>(<span class="hljs-string">"org.mybatis.spring.sample.mapper"</span>)</span><br><span class="line"> <span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AppConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">   <span class="hljs-meta">@Bean</span></span><br><span class="line">   <span class="hljs-function"><span class="hljs-keyword">public</span> DataSource <span class="hljs-title">dataSource</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">     <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> EmbeddedDatabaseBuilder()</span><br><span class="line">              .addScript(<span class="hljs-string">"schema.sql"</span>)</span><br><span class="line">              .build();</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="hljs-meta">@Bean</span></span><br><span class="line">   <span class="hljs-function"><span class="hljs-keyword">public</span> DataSourceTransactionManager <span class="hljs-title">transactionManager</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">     <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> DataSourceTransactionManager(dataSource());</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="hljs-meta">@Bean</span></span><br><span class="line">   <span class="hljs-function"><span class="hljs-keyword">public</span> SqlSessionFactory <span class="hljs-title">sqlSessionFactory</span><span class="hljs-params">()</span> <span class="hljs-keyword">throws</span> Exception </span>&#123;</span><br><span class="line">     SqlSessionFactoryBean sessionFactory = <span class="hljs-keyword">new</span> SqlSessionFactoryBean();</span><br><span class="line">     sessionFactory.setDataSource(dataSource())˙</span><br><span class="line">     <span class="hljs-keyword">return</span> sessionFactory.getObject();</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
+<p>而链接方式即是加上如下的配置：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@MapperScan</span>(basePackages = &#123;<span class="string">"titan.mapper"</span>&#125;, sqlSessionFactoryRef = <span class="string">"sqlSessionFactory1"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MybatisDbLogisticsServiceConfig</span> </span>&#123;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>打开MapperScan的源码，可以看到下面的注释：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@MapperScan</span>(<span class="string">"org.mybatis.spring.sample.mapper"</span>)</span><br><span class="line"> <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">AppConfig</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">   <span class="meta">@Bean</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> DataSource <span class="title">dataSource</span><span class="params">()</span> </span>&#123;</span><br><span class="line">     <span class="keyword">return</span> <span class="keyword">new</span> EmbeddedDatabaseBuilder()</span><br><span class="line">              .addScript(<span class="string">"schema.sql"</span>)</span><br><span class="line">              .build();</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="meta">@Bean</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> DataSourceTransactionManager <span class="title">transactionManager</span><span class="params">()</span> </span>&#123;</span><br><span class="line">     <span class="keyword">return</span> <span class="keyword">new</span> DataSourceTransactionManager(dataSource());</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="meta">@Bean</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> SqlSessionFactory <span class="title">sqlSessionFactory</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">     SqlSessionFactoryBean sessionFactory = <span class="keyword">new</span> SqlSessionFactoryBean();</span><br><span class="line">     sessionFactory.setDataSource(dataSource())˙</span><br><span class="line">     <span class="keyword">return</span> sessionFactory.getObject();</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure></p>
 <p>很容易的看出， 其用于将某一文件夹下的Mapper文件和特定的DataSource， DataSourceTransactionManager(事务管理器),  SqlSessionFactory 相关联。</p>
 <p>关联之后， 执行某一Mapper类时， 就可以知道访问哪一个具体的DataSource了。</p>
 <ol start="4">
-<li>连接池<br>关于连接池的配置， 可以使用<figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@Bean</span>(name = <span class="hljs-string">"ds2"</span>)</span><br><span class="line">   <span class="hljs-meta">@ConfigurationProperties</span>(prefix = <span class="hljs-string">"spring.datasource.db2"</span>) <span class="hljs-comment">// application.properteis中对应属性的前缀</span></span><br><span class="line">   <span class="hljs-function"><span class="hljs-keyword">public</span> DataSource <span class="hljs-title">dataSource2</span><span class="hljs-params">()</span> </span>&#123;</span><br><span class="line">       <span class="hljs-keyword">return</span> DataSourceBuilder.create().build();</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
-</li>
+<li>连接池<br>关于连接池的配置， 可以使用</li>
 </ol>
-<p>并加上下面的配置：<br><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spring.datasource.db2.type=com.alibaba.druid.pool.DruidDataSource</span><br></pre></td></tr></table></figure></p>
-<p>或者在声明数据源时直接使用DruidDataSourceBuilder的数据源构造器。<br><figure class="highlight java hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">@Primary</span></span><br><span class="line"><span class="hljs-meta">@Bean</span></span><br><span class="line"><span class="hljs-meta">@ConfigurationProperties</span>(<span class="hljs-string">"spring.datasource.druid.one"</span>)</span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">public</span> DataSource <span class="hljs-title">dataSourceOne</span><span class="hljs-params">()</span></span>&#123;</span><br><span class="line">    <span class="hljs-keyword">return</span> DruidDataSourceBuilder.create().build();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span>(name = <span class="string">"ds2"</span>)</span><br><span class="line">   <span class="meta">@ConfigurationProperties</span>(prefix = <span class="string">"spring.datasource.db2"</span>) <span class="comment">// application.properteis中对应属性的前缀</span></span><br><span class="line">   <span class="function"><span class="keyword">public</span> DataSource <span class="title">dataSource2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">       <span class="keyword">return</span> DataSourceBuilder.create().build();</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>并加上下面的配置：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">spring.datasource.db2.type=com.alibaba.druid.pool.DruidDataSource</span><br></pre></td></tr></table></figure></p>
+<p>或者在声明数据源时直接使用DruidDataSourceBuilder的数据源构造器。<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Primary</span></span><br><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="meta">@ConfigurationProperties</span>(<span class="string">"spring.datasource.druid.one"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> DataSource <span class="title">dataSourceOne</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> DruidDataSourceBuilder.create().build();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h1 id="调试方式"><a href="#调试方式" class="headerlink" title="调试方式"></a>调试方式</h1><p>在写完所有所需要的部分， 下面就需要检验多数据源是否生效。<br>最简单的检验方式就是将程序跑起来， 分别调用不同数据源的方法， 观察数据源的切换。<br>下面介绍下两种调试方法：</p>
 <ol>
 <li><p>debug模式启动程序，并在调用mapper的方法内打断点。并查看Mapper的相关属性是否正确。这在检查数据源的属性(比如闲时检测)是否设置到数据源中至关重要。<br><img src="https://upload-images.jianshu.io/upload_images/1435951-adcacc26a0ecf5c4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="f5c45e3d.png"></p>
 </li>
 <li><p>另外一种， 可以连接mysql，并查看数据库的连接情况。<br>主要是使用下面的命令：</p>
-<figure class="highlight shell hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show processlist;</span><br></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show processlist;</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
 <p>显示结果如下：<br><img src="https://upload-images.jianshu.io/upload_images/1435951-e5de70cd99ac54ac.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="image.png"></p>
@@ -443,6 +471,10 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.gif"
+                alt="张军" />
+            
               <p class="site-author-name" itemprop="name">张军</p>
               <p class="site-description motion-element" itemprop="description"></p>
           </div>
@@ -477,6 +509,22 @@
 
           
 
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/zjlearn" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:zj_learn@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
           
 
           
